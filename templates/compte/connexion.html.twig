@@ -1,0 +1,189 @@
+<div class="row small">
+  <div class="card col-md-4 offset-1">
+    <div class="card-header">
+      <h3>
+        <i class="fas fa-user-check"></i> Déjà Membre : Connexion
+      </h3>
+    </div>
+    <div class="card-body">
+      <form method="post" action="/mi5/fr/login">
+        <div class="form-group">
+          <label for="inputEmail">Email</label>
+          <input type="email"
+            value=""
+            name="email"
+            id="inputEmail"
+            class="form-control"
+            required=""
+            autofocus="" />
+        </div>
+        <div class="form-group">
+          <label for="inputPassword">Mot de Passe</label>
+          <input type="password"
+            name="password"
+            id="inputPassword"
+            class="form-control"
+            required="" />
+          <input type="hidden"
+            name="_csrf_token"
+            value="_In8KEFgtL0FbI6SMisWJT-kPNV86cN5CiNX2QRyWvc" />
+        </div>
+        <div class="col-md-12 btn-group" style="padding:0px">
+          <button class="btn btn-primary" type="submit">Connexion</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="card col-md-5">
+    <div class="card-header">
+      <h3>
+        <i class="fas fa-user-plus"></i> Nouveau Membre : Inscription
+      </h3>
+    </div>
+    <div class="card-body">
+      <form name="usager" method="post" action="/mi5/fr/usager/inscription">
+        <div id="usager">
+          <div class="form-group">
+            <label for="usager_email" class="required">Email</label><input type="email"
+              id="usager_email"
+              name="usager[email]"
+              required="required"
+              maxlength="180"
+              class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="usager_password" class="required">Mot de Passe</label><input type="password"
+              id="usager_password"
+              name="usager[password]"
+              required="required"
+              class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="usager_nom" class="required">Nom</label><input type="text"
+              id="usager_nom"
+              name="usager[nom]"
+              required="required"
+              maxlength="255"
+              class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="usager_prenom" class="required">Prenom</label><input type="text"
+              id="usager_prenom"
+              name="usager[prenom]"
+              required="required"
+              maxlength="255"
+              class="form-control" />
+          </div>
+          <div class="form-group">
+            <link type="text/css"
+              rel="stylesheet"
+              href="../captcha-handler?get=bdc-layout-stylesheet.css" />
+            <div class="BDC_CaptchaDiv"
+              id="ExampleCaptcha_CaptchaDiv"
+              style="width:280px; height:50px;">
+              <!-- 
+  -->
+              <div class="BDC_CaptchaImageDiv"
+                id="ExampleCaptcha_CaptchaImageDiv"
+                style="width:250px !important; height:50px !important;">
+                <!-- 
+    -->
+                <div class="BDC_CaptchaImageDiv"
+                  style="width:250px; height:40px;">
+                  <img class="BDC_CaptchaImage"
+                    id="ExampleCaptcha_CaptchaImage"
+                    src="../captcha-handler?get=image&amp;c=ExampleCaptcha&amp;t=9a8c0838ae7fed93f298ac3a25cd039b"
+                    alt="Retype the CAPTCHA code from the image"
+                    style="" />
+                </div>
+                <!-- 
+    --><a href="//captcha.org/captcha.html?symfony"
+                  title="BotDetect CAPTCHA Library for Symfony"
+                  style="display: block !important; height: 10px !important; margin: 0 !important; padding: 0 !important; font-size: 9px !important; line-height: 9px !important; visibility: visible !important; font-family: Verdana, DejaVu Sans, Bitstream Vera Sans, Verdana Ref, sans-serif !important; vertical-align: middle !important; text-align: center !important; text-decoration: none !important; background-color: #f8f8f8 !important; color: #606060 !important;">
+                  BotDetect CAPTCHA Library for Symfony
+                </a><!-- 
+  -->
+              </div>
+              <!-- 
+  -->
+              <div class="BDC_CaptchaIconsDiv"
+                id="ExampleCaptcha_CaptchaIconsDiv"
+                style="width: 24px !important;">
+                <!-- 
+    --><a class="BDC_ReloadLink"
+                  id="ExampleCaptcha_ReloadLink"
+                  href="#"
+                  title="Change the CAPTCHA code"
+                  style="display: inline-block !important;">
+                  <img class="BDC_ReloadIcon"
+                    id="ExampleCaptcha_ReloadIcon"
+                    src="../captcha-handler?get=bdc-reload-icon.gif"
+                    alt="Change the CAPTCHA code" />
+                </a><!-- 
+    --><a rel="nofollow"
+                  class="BDC_SoundLink"
+                  id="ExampleCaptcha_SoundLink"
+                  href="../captcha-handler?get=sound&amp;c=ExampleCaptcha&amp;t=9a8c0838ae7fed93f298ac3a25cd039b"
+                  title="Speak the CAPTCHA code"
+                  target="_blank">
+                  <img class="BDC_SoundIcon"
+                    id="ExampleCaptcha_SoundIcon"
+                    src="../captcha-handler?get=bdc-sound-icon.gif"
+                    alt="Speak the CAPTCHA code" />
+                </a><!-- 
+    -->
+                <div class="BDC_Placeholder"
+                  id="ExampleCaptcha_AudioPlaceholder">
+                  &nbsp;
+                </div>
+                <!-- 
+  -->
+              </div>
+              <script type="text/javascript"
+                async=""
+                src="https://remote.captcha.com/include.js?i=DSjm4HC1NUWvkeAvalaLpANUCJM5dT8-mAiYG313o36xw2WQyAvdrFc0Zz6mikDbWGrK1GMdxc-GZm8BQr2nqKYxmNJMOYLDcbi4D0ph_kYeDdiOIsNynvFUCOMUZ8q7eW29-TjJZMz954iMeIe5Uys04TKhqq1dhRIIP2FH40lGaWFdyEX3Y_Z0qVecWkhUNUxMSCXLmMSQTIKP3UL7Vt1pNHZcc5RjZHf7KuXaLlK0mBRYSK8z8G9pMi0"></script>
+              <script src="../captcha-handler?get=script-include&amp;c=ExampleCaptcha&amp;t=9a8c0838ae7fed93f298ac3a25cd039b"
+                type="text/javascript"></script>
+              <input type="hidden"
+                name="BDC_UserSpecifiedCaptchaId"
+                id="BDC_UserSpecifiedCaptchaId"
+                value="ExampleCaptcha" />
+              <input type="hidden"
+                name="BDC_VCID_ExampleCaptcha"
+                id="BDC_VCID_ExampleCaptcha"
+                value="9a8c0838ae7fed93f298ac3a25cd039b" />
+              <input type="hidden"
+                name="BDC_BackWorkaround_ExampleCaptcha"
+                id="BDC_BackWorkaround_ExampleCaptcha"
+                value="1" />
+              <input type="hidden"
+                name="BDC_Hs_ExampleCaptcha"
+                id="BDC_Hs_ExampleCaptcha"
+                value="6308a1b435f2334963bdbd4914e23e3474ce5076" />
+              <input type="hidden"
+                name="BDC_SP_ExampleCaptcha"
+                id="BDC_SP_ExampleCaptcha"
+                value="614041697" />
+            </div>
+            <input type="text"
+              id="captcha"
+              name="usager[captcha]"
+              required="required"
+              class="form-control"
+              autocomplete="off"
+              style="text-transform: uppercase;" />
+          </div>
+          <input type="hidden"
+            id="usager__token"
+            name="usager[_token]"
+            value="nDuOBwkN_sZ5BMF9QAHXjvLwrXxVUsoWWGHa1iT_YNA" />
+        </div>
+        <div class="col-md-12 btn-group" style="padding:0px">
+          <button class="btn btn-primary">Inscription</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>

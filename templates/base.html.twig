@@ -1,19 +1,107 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="fr">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Démo SF" />
+    <meta name="author" content="UGA/IUT2/INFO/Philippe Martin" />
+    <link rel="icon" href="images/favicon.ico" />
+    <title>
+      {% block title %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+      {% endblock %}
+    </title>
+    <!-- CSS : Bootstrap, Fontawsome, projet (styles communs à tout le projet) -->
+    <link href="/mi5/css/bootstrap-4/bootstrap.min.css" rel="stylesheet" />
+    <link href="/mi5/css/fontawsome-5.all.min.css" rel="stylesheet" />
+    <link href="/mi5/css/projet.css" rel="stylesheet" />
+    <!-- debut du block css -->
+    {% block style %}
+
+    {% endblock %}
+    <!-- fin du block css -->
+  </head>
+  <body>
+    {% include 'navBar.html.twig' %}
+    <main role="main" class="container-fluid">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="main-div">
+            <!-- debut du block body -->
+            {% block body %}
+
+            {% endblock %}
+            <!-- fin du block body -->
+          </div>
+        </div>
+        <div class="col-md-2" style="padding: 10px;">
+          <div class="card">
+            <div class="card-header text-center">
+              <h4>
+                <i class="fas fa-star"></i> Top Ventes <i class="fas fa-star">
+
+                </i>
+              </h4>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <a href="/mi5/fr/boutique/rayon/3">
+                  <li class="list-group-item text-center clickable">
+                    <img src="/mi5/images/produits/nutella.jpg"
+                      style="height: 40px;" />
+                    <p>
+                      Nutella<br /><i>130 Ventes</i>
+                    </p>
+                  </li>
+                </a>
+                <a href="/mi5/fr/boutique/rayon/1">
+                  <li class="list-group-item text-center clickable">
+                    <img src="/mi5/images/produits/peche.jpg"
+                      style="height: 40px;" />
+                    <p>
+                      Pêche<br /><i>39 Ventes</i>
+                    </p>
+                  </li>
+                </a>
+                <a href="/mi5/fr/boutique/rayon/3">
+                  <li class="list-group-item text-center clickable">
+                    <img src="/mi5/images/produits/oreo.jpg"
+                      style="height: 40px;" />
+                    <p>
+                      Oreo<br /><i>36 Ventes</i>
+                    </p>
+                  </li>
+                </a>
+                <a href="/mi5/fr/boutique/rayon/2">
+                  <li class="list-group-item text-center clickable">
+                    <img src="/mi5/images/produits/romanesco.jpg"
+                      style="height: 40px;" />
+                    <p>
+                      Chou Romanesco<br /><i>25 Ventes</i>
+                    </p>
+                  </li>
+                </a>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- JS : JQuery, Bootstrap -->
+    <script src="/mi5/js/jquery-3/jquery.slim.min.js"></script>
+    <script src="/mi5/js/bootstrap-4/bootstrap.bundle.min.js"></script>
+    <script>
+      $(function () { // Activation tooltip bootstrap sur la page
+      $('[data-toggle="tooltip"]').tooltip(); $("#searchButton").click( function
+      () { var searchString = $('#searchString').val().trim(); location =
+      ('/mi5/fr/boutique/chercher/' + searchString); return false; }); });
+    </script>
+    <!-- debut du block js -->
+    {% block script %}
+
+    {% endblock %}
+    <!-- fin du block js -->
+  </body>
 </html>
