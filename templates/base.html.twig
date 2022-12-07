@@ -14,9 +14,10 @@
       {% endblock %}
     </title>
     <!-- CSS : Bootstrap, Fontawsome, projet (styles communs à tout le projet) -->
-    <link href="/mi5/css/bootstrap-4/bootstrap.min.css" rel="stylesheet" />
-    <link href="/mi5/css/fontawsome-5.all.min.css" rel="stylesheet" />
-    <link href="/mi5/css/projet.css" rel="stylesheet" />
+    <link href="{{ asset('css/bootstrap-4/bootstrap.min.css') }}"
+      rel="stylesheet" />
+    <link href="{{ asset('css/fontawsome-5.all.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/projet.css') }}" rel="stylesheet" />
     <!-- debut du block css -->
     {% block style %}
 
@@ -49,7 +50,7 @@
               <ul class="list-group">
                 <a href="/mi5/fr/boutique/rayon/3">
                   <li class="list-group-item text-center clickable">
-                    <img src="/mi5/images/produits/nutella.jpg"
+                    <img src="{{ asset('images/produits/nutella.jpg') }}"
                       style="height: 40px;" />
                     <p>
                       Nutella<br /><i>130 Ventes</i>
@@ -58,7 +59,7 @@
                 </a>
                 <a href="/mi5/fr/boutique/rayon/1">
                   <li class="list-group-item text-center clickable">
-                    <img src="/mi5/images/produits/peche.jpg"
+                    <img src="{{ asset('images/produits/peche.jpg') }}"
                       style="height: 40px;" />
                     <p>
                       Pêche<br /><i>39 Ventes</i>
@@ -67,7 +68,7 @@
                 </a>
                 <a href="/mi5/fr/boutique/rayon/3">
                   <li class="list-group-item text-center clickable">
-                    <img src="/mi5/images/produits/oreo.jpg"
+                    <img src="{{ asset('images/produits/oreo.jpg') }}"
                       style="height: 40px;" />
                     <p>
                       Oreo<br /><i>36 Ventes</i>
@@ -76,7 +77,7 @@
                 </a>
                 <a href="/mi5/fr/boutique/rayon/2">
                   <li class="list-group-item text-center clickable">
-                    <img src="/mi5/images/produits/romanesco.jpg"
+                    <img src="{{ asset('images/produits/romanesco.jpg') }}"
                       style="height: 40px;" />
                     <p>
                       Chou Romanesco<br /><i>25 Ventes</i>
