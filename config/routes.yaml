@@ -1,3 +1,33 @@
 index:
   path: /
-  controller: App\Controller\DefaultController::index
+  controller: App\Controller\AccueilController::index
+
+boutique:
+  path: /boutique/
+  controller: App\Controller\BoutiqueController::index
+
+rayon:
+  path: /boutique/rayon/{rayonId}
+  controller: App\Controller\RayonController::index
+  defaults:
+    rayonId: 1
+  requirements:
+    rayonId: '\d+'
+
+panier:
+  path: /panier
+  controller: App\Controller\PanierController::index
+
+panierAjouter:
+  path: /panier/ajouter/{produitId}
+  controller: App\Controller\PanierController::add
+  defaults:
+    produitId: 1
+  requirements:
+    produitId: '\d+'
+
+panierEnlever:
+  path: /panier/enlever/{produitId}
+  controller: App\Controller\PanierController::remove
+  requirements:
+    produitId: '\d+'

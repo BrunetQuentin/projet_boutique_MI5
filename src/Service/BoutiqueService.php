@@ -6,77 +6,98 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 // Un service pour manipuler le contenu de la Boutique
 //  qui est composée de catégories et de produits stockés "en dur"
-class BoutiqueService {
+class BoutiqueService
+{
+  // declare les propriétés du service
+  private $categories;
+  private $produits;
+  // constructeur du service : injection des dépendances et tris
+  public function __construct(RequestStack $requestStack)
+  {
+    // Injection du service RequestStack
+    //  afin de pouvoir récupérer la "locale" dans la requête en cours
+    $this->requestStack = $requestStack;
+    // On transforme le JSON en tableaux d'objets PHP
+    $this->categories = json_decode($this->categoriesJson);
+    $this->produits = json_decode($this->produitsJson);
+    // On trie le tableau des catégories selon la locale
+    usort($this->categories, function ($categorie1, $categorie2) {
+      return $this->compareSelonLocale(
+        $categorie1->libelle,
+        $categorie2->libelle
+      );
+    });
+    // On trie le tableau des produits de chaque catégorie selon la locale
+    usort($this->produits, function ($categorie1, $categorie2) {
+      return $this->compareSelonLocale(
+        $categorie1->libelle,
+        $categorie2->libelle
+      );
+    });
+  }
 
-    // renvoie toutes les catégories
-    public function findAllCategories() : array {
-        return $this->categories;
-    }
+  // renvoie toutes les catégories
+  public function findAllCategories(): array
+  {
+    return $this->categories;
+  }
 
-    // renvoie la categorie dont id == $idCategorie (null si pas trouvée)
-    public function findCategorieById(int $idCategorie) : object {
-        $res = array_filter($this->categories,
-                function ($categorie) use ($idCategorie) {
-                    return $categorie->id == $idCategorie;
-                });
-        return (sizeof($res) === 1) ? $res[array_key_first($res)] : null;
-    }
+  // renvoie la categorie dont id == $idCategorie (null si pas trouvée)
+  public function findCategorieById(int $idCategorie): object
+  {
+    $res = array_filter($this->categories, function ($categorie) use (
+      $idCategorie
+    ) {
+      return $categorie->id == $idCategorie;
+    });
+    return sizeof($res) === 1 ? $res[array_key_first($res)] : null;
+  }
 
-    // renvoie le produit dont id == $idProduit, null si pas trouvé
-    public function findProduitById(int $idProduit) : object {
-        $res = array_filter($this->produits,
-                function ($produit) use ($idProduit) {
-                    return $produit->id == $idProduit;
-                });
-        return (sizeof($res) === 1) ? $res[array_key_first($res)] : null;
-    }
+  // renvoie le produit dont id == $idProduit, null si pas trouvé
+  public function findProduitById(int $idProduit): object
+  {
+    $res = array_filter($this->produits, function ($produit) use ($idProduit) {
+      return $produit->id == $idProduit;
+    });
+    return sizeof($res) === 1 ? $res[array_key_first($res)] : null;
+  }
 
-    // renvoie untableau de produits dont idCategorie == $idCategorie
-    public function findProduitsByCategorie(int $idCategorie) : array {
-        return array_filter($this->produits,
-                function ($produit) use ($idCategorie) {
-                    return $produit->idCategorie == $idCategorie;
-                });
-    }
+  // renvoie untableau de produits dont idCategorie == $idCategorie
+  public function findProduitsByCategorie(int $idCategorie): array
+  {
+    return array_filter($this->produits, function ($produit) use (
+      $idCategorie
+    ) {
+      return $produit->idCategorie == $idCategorie;
+    });
+  }
 
-    // renvoie un tableau de produits dont libelle+texte contient $search
-    public function findProduitsByLibelleOrTexte(string $search) : array {
-        return array_filter($this->produits,
-                function ($produit) use ($search) {
-                    return ($search == "" ||
-                    mb_strpos(mb_strtolower($produit->libelle) . " " . $produit->texte, mb_strtolower($search)) !== false);
-                });
-    }
+  // renvoie un tableau de produits dont libelle+texte contient $search
+  public function findProduitsByLibelleOrTexte(string $search): array
+  {
+    return array_filter($this->produits, function ($produit) use ($search) {
+      return $search == "" ||
+        mb_strpos(
+          mb_strtolower($produit->libelle) . " " . $produit->texte,
+          mb_strtolower($search)
+        ) !== false;
+    });
+  }
 
-    // constructeur du service : injection des dépendances et tris
-    public function __construct(RequestStack $requestStack) {
-        // Injection du service RequestStack
-        //  afin de pouvoir récupérer la "locale" dans la requête en cours
-        $this->requestStack = $requestStack;
-        // On transforme le JSON en tableaux d'objets PHP
-        $this->categories = json_decode($this->categoriesJson);
-        $this->produits = json_decode($this->produitsJson);
-        // On trie le tableau des catégories selon la locale
-        usort($this->categories, function ($categorie1, $categorie2) {
-            return $this->compareSelonLocale($categorie1->libelle, $categorie2->libelle);
-        });
-        // On trie le tableau des produits de chaque catégorie selon la locale
-        usort($this->produits, function ($categorie1, $categorie2) {
-            return $this->compareSelonLocale($categorie1->libelle, $categorie2->libelle);
-        });
-    }
+  ////////////////////////////////////////////////////////////////////////////
+  // Attention : \Collator nécessite que le module php "intl" soit activé
+  private function compareSelonLocale(string $s1, $s2)
+  {
+    $collator = new \Collator(
+      $this->requestStack->getCurrentRequest()->getLocale()
+    );
+    return collator_compare($collator, $s1, $s2);
+  }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Attention : \Collator nécessite que le module php "intl" soit activé
-    private function compareSelonLocale(string $s1, $s2) {
-        $collator = new \Collator($this->requestStack->getCurrentRequest()->getLocale());
-        return collator_compare($collator, $s1, $s2);
-    }
+  private $requestStack; // Le service RequestStack qui sera injecté
 
-    private $requestStack; // Le service RequestStack qui sera injecté
-    
-    // Le catalogue de la boutique, codé en dur dans un tableau associatif
-    private $categoriesJson = <<<JSON
+  // Le catalogue de la boutique, codé en dur dans un tableau associatif
+  private $categoriesJson = <<<JSON
     [
         {
             "id" : 1,
@@ -104,7 +125,7 @@ class BoutiqueService {
         }
     ]
 JSON;
-    private $produitsJson = <<<JSON
+  private $produitsJson = <<<JSON
     [
         {
             "id" : 1,
@@ -204,5 +225,4 @@ JSON;
         }
     ]
 JSON;
-
 }

@@ -16,17 +16,17 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/mi5/fr/boutique">
+        <a class="nav-link" href="{{ relative_path('/boutique/') }}">
           <i class="fas fa-store"></i> Boutique
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/mi5/fr/panier">
+        <a class="nav-link" href="{{ relative_path('/panier/') }}">
           <i class="fas fa-shopping-cart"></i> 1 Produit(s)
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/mi5/fr/contact">
+        <a class="nav-link" href="{{ relative_path('/boutique/') }}">
           <i class="fas fa-comments"></i> Contact
         </a>
       </li>
@@ -38,16 +38,19 @@
           <i class="fas fa-user"></i> Connexion
         </span>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="/mi5/fr/login">
+          <a class="dropdown-item" href="{{ relative_path('/compte/login/') }}">
             Connexion/Inscription
           </a>
-          <a class="dropdown-item disabled" href="/mi5/fr/usager/compte">
+          <a class="dropdown-item disabled"
+            href="{{ relative_path('/compte/monCompte/') }}">
             Mon Compte
           </a>
-          <a class="dropdown-item disabled" href="/mi5/fr/usager/commandes">
+          <a class="dropdown-item disabled"
+            href="{{ relative_path('/compte/mesCommandes/') }}">
             Mes Commandes
           </a>
-          <a class="dropdown-item disabled" href="/mi5/fr/logout">
+          <a class="dropdown-item disabled"
+            href="{{ relative_path('/compte/logout/') }}">
             Déconnexion
           </a>
         </div>

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="card col-md-12">
+    <div class="card-header">
+      <h1>
+        <i class="fas fa-store"></i> Rayon "{{ category.libelle }}" : {{
+          produits|length
+        }} Produit(s)
+      </h1>
+    </div>
+    <div class="card-body row">
+      {% for produit in produits %}
+        <div class="col-md-4">
+          <div class="card clickable"
+            onclick="location = '{{ relative_path('/panier/ajouter/') }}' + {{
+            produit.id
+            }}">
+            <img src="{{ asset(produit.visuel) }}"
+              class="card-img-produit"
+              alt="{{ produit.libelle }}" />
+            <div class="card-body">
+              <h4 class="card-title">
+                {{ produit.libelle|upper }}
+              </h4>
+              <p class="card-text">
+                <i>{{ produit.texte }}</i>
+              </p>
+              <h2>
+                <span class="badge badge-primary">
+                  <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;
+                  {{ produit.prix }}&nbsp;€
+                </span>
+              </h2>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
