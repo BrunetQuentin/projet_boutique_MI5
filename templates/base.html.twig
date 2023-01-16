@@ -25,7 +25,7 @@
     <!-- fin du block css -->
   </head>
   <body>
-    {% include 'navBar.html.twig' %}
+    {{ render(controller('App\\Controller\\DefaultController::navigation')) }}
     <main role="main" class="container-fluid">
       <div class="row">
         <div class="col-md-10">
@@ -91,13 +91,17 @@
       </div>
     </main>
     <!-- JS : JQuery, Bootstrap -->
-    <script src="/mi5/js/jquery-3/jquery.slim.min.js"></script>
-    <script src="/mi5/js/bootstrap-4/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('/js/jquery-3/jquery.slim.min.js') }}"></script>
+    <script src="{{
+      asset(
+        '/js/bootstrap-4/bootstrap.bundle.min.js'
+      )
+      }}"></script>
     <script>
-      $(function () { // Activation tooltip bootstrap sur la page
-      $('[data-toggle="tooltip"]').tooltip(); $("#searchButton").click( function
-      () { var searchString = $('#searchString').val().trim(); location =
-      ('/mi5/fr/boutique/chercher/' + searchString); return false; }); });
+      $(function () { $('[data-toggle="tooltip"]').tooltip();
+      $("#searchButton").click( function () { var searchString =
+      $('#searchString').val().trim(); location = ('/mi5/fr/boutique/chercher/'
+      + searchString); return false; }); });
     </script>
     <!-- debut du block js -->
     {% block script %}

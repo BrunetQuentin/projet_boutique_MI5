@@ -1,10 +1,10 @@
 <?php
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-class AccueilController extends AbstractController
+class ContactController extends AbstractController
 {
   public function index()
   {
-    return $this->render('accueil.html.twig', []);
+    return $this->render('contact.html.twig', []);
   }
 }

@@ -3,14 +3,15 @@
   <div class="card col-md-12">
     <div class="card-header">
       <h1>
-        <i class="fas fa-shopping-cart"></i> 3 Produit(s) :
-        <b>7,84&nbsp;€</b>
+        <i class="fas fa-shopping-cart"></i> {{ nbProduits }} Produit(s) :
+        <b>{{ total }}&nbsp;€</b>
       </h1>
       <div class="col-md-12 btn-group btn-group-lg" role="group">
-        <a class="btn btn-primary" href="/mi5/fr/boutique">
+        <a class="btn btn-primary" href="{{ relative_path('boutique') }}">
           Continuer les Courses
         </a>
-        <a class="btn btn-primary" href="/mi5/fr/panier/commander">
+        <a class="btn btn-primary"
+          href="{{ relative_path('panier/commander') }}">
           Passer la Commande
         </a>
       </div>
@@ -42,32 +43,46 @@
             {% for produit in panier %}
               <tr>
                 <td>
-                  <img src="{{ asset(produit.produit.image) }}"
+                  <img src="{{ asset(produit.produit.visuel) }}"
                     class="cart-img-produit"
                     alt="{{ produit.produit.libelle }}" />
                 </td>
                 <td>
-                  <a href="/mi5/fr/boutique/rayon/3">
+                  <a href="{{ relative_path('boutique/rayon/') }}{{
+                    produit.produit.idCategorie
+                    }}">
                     <b>{{ produit.produit.libelle }}</b>
                   </a>
                 </td>
                 <td class="text-right">
-                  2,50&nbsp;€
+                  {{ produit.produit.prix }}&nbsp;€
                 </td>
                 <td>
-                  <a href="/mi5/fr/panier/enlever/9">
+                  <a href="{{
+                    relative_path(
+                      '/panier/enlever/'
+                    )
+                    }}{{ produit.produit.id|raw }}">
                     <i class="fas fa-minus-square text-muted"></i>
                   </a>
                   {{ produit.quantite }}
-                  <a href="/mi5/fr/panier/ajouter/9">
+                  <a href="{{
+                    relative_path(
+                      '/panier/ajouter/'
+                    )
+                    }}{{ produit.produit.id|raw }}">
                     <i class="fas fa-plus-square text-muted"></i>
                   </a>
                 </td>
                 <td class="text-right">
-                  5,00&nbsp;€
+                  {{ produit.quantite * produit.produit.prix }}&nbsp;€
                 </td>
                 <td>
-                  <a href="/mi5/fr/panier/supprimer/9">
+                  <a href="{{
+                    relative_path(
+                      '/panier/supprimer/'
+                    )
+                    }}{{ produit.produit.id|raw }}">
                     <i class="fas fa-trash text-muted"
                       data-toggle="tooltip"
                       title=""
@@ -87,10 +102,10 @@
                 Total
               </th>
               <th class="text-right">
-                7,84&nbsp;€
+                {{ total }}&nbsp;€
               </th>
               <th>
-                <a href="/mi5/fr/panier/vider">
+                <a href="{{ relative_path('/panier/vider') }}">
                   <i class="fas fa-trash text-muted"
                     data-toggle="tooltip"
                     title=""

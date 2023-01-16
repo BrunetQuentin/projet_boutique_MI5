@@ -1,59 +1,43 @@
 <?php
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\BoutiqueService;
+use App\Service\PanierService;
+
 class PanierController extends AbstractController
 {
-  public function index(BoutiqueService $boutique)
+  public function index(PanierService $panier)
   {
-    session_start();
-    $panier = $_SESSION['panier'] ?? [];
     return $this->render('panier.html.twig', [
-      'panier' => $panier,
-      'total' => array_reduce(
-        $panier,
-        function ($total, $produit) {
-          return $total + $produit->prix;
-        },
-        0
-      ),
+      'panier' => $panier->getContenu(),
+      'total' => $panier->getTotal(),
+      'nbProduits' => $panier->getNbProduits(),
     ]);
   }
 
-  public function add($produitId, BoutiqueService $boutique)
+  public function add($produitId, PanierService $panier)
   {
-    session_start();
-    // On récupère le produit à ajouter au panier
-    $produit = $boutique->findProduitById($produitId);
-    // On récupère le panier en cours
-    $panier = $_SESSION['panier'] ?? [];
-    // Si le produit existe deja incrementer la valeur sinon créer l'objet avec la valeur 1
-    if (array_key_exists($produitId, $panier)) {
-      $panier[$produit->id]->quantite++;
-    } else {
-      $panier[$produit->id] = ['produit' => $produit, 'quantite' => 1];
-    }
-    $panier[] = $produit;
-    // On sauvegarde le panier en session
-    $_SESSION['panier'] = $panier;
-    // On redirige vers la page précédente
+    $panier->ajouterProduit($produitId);
     $request = $this->get('request_stack')->getCurrentRequest();
     return $this->redirect($request->headers->get('referer'));
   }
 
-  public function remove($produitId)
+  public function remove($produitId, PanierService $panier)
   {
-    session_start();
+    $panier->enleverProduit($produitId);
+    $request = $this->get('request_stack')->getCurrentRequest();
+    return $this->redirect($request->headers->get('referer'));
+  }
 
-    // On récupère le panier en cours
-    $panier = $_SESSION['panier'] ?? [];
-    // On supprime le produit du panier
-    $panier = array_filter($panier, function ($produit) use ($produitId) {
-      return $produit->id != $produitId;
-    });
-    // On sauvegarde le panier en session
-    $_SESSION['panier'] = $panier;
-    // On redirige vers la page précédente
+  public function delete($produitId, PanierService $panier)
+  {
+    $panier->supprimerProduit($produitId);
+    $request = $this->get('request_stack')->getCurrentRequest();
+    return $this->redirect($request->headers->get('referer'));
+  }
+
+  public function clear(PanierService $panier)
+  {
+    $panier->vider();
     $request = $this->get('request_stack')->getCurrentRequest();
     return $this->redirect($request->headers->get('referer'));
   }

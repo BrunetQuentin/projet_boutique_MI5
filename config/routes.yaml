@@ -31,3 +31,35 @@ panierEnlever:
   controller: App\Controller\PanierController::remove
   requirements:
     produitId: '\d+'
+
+panierSupprimer:
+  path: /panier/supprimer/{produitId}
+  controller: App\Controller\PanierController::delete
+  requirements:
+    produitId: '\d+'
+
+panierVider:
+  path: /panier/vider
+  controller: App\Controller\PanierController::clear
+  requirements:
+    produitId: '\d+'
+
+contact:
+  path: /contact
+  controller: App\Controller\ContactController::index
+
+compteConnexion:
+  path: /compte/connexion
+  controller: App\Controller\CompteController::connect
+
+compteDetail:
+  path: /compte/detail
+  controller: App\Controller\CompteController::account
+
+compteCommandes:
+  path: /compte/commandes
+  controller: App\Controller\CompteController::orders
+
+compteDeconnexion:
+  path: /compte/deconnexion
+  controller: App\Controller\CompteController::deconnect
