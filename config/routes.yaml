@@ -44,6 +44,10 @@ panierVider:
   requirements:
     produitId: '\d+'
 
+panierCommander:
+  path: /panier/commander
+  controller: App\Controller\PanierController::checkout
+
 contact:
   path: /contact
   controller: App\Controller\ContactController::index
@@ -51,6 +55,10 @@ contact:
 compteConnexion:
   path: /compte/connexion
   controller: App\Controller\CompteController::connect
+
+compteLogin:
+  path: /compte/connexion/login
+  controller: App\Controller\CompteController::login
 
 compteDetail:
   path: /compte/detail

@@ -1,0 +1,15 @@
+<ul class="list-group">
+  {% for produitId, nbrVente in bestSellers %}
+    <a href="{{ relative_path('/boutique/rayon/') }}{{
+      produits[produitId].idCategorie
+      }}">
+      <li class="list-group-item text-center clickable">
+        <img src="{{ asset(produits[produitId].visuel) }}"
+          style="height: 40px;" />
+        <p>
+          {{ produits[produitId].libelle }}<br /><i>{{ nbrVente }} Ventes</i>
+        </p>
+      </li>
+    </a>
+  {% endfor %}
+</ul>

@@ -2,6 +2,7 @@
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Service\PanierService;
+use App\Service\CompteService;
 
 class PanierController extends AbstractController
 {
@@ -40,5 +41,15 @@ class PanierController extends AbstractController
     $panier->vider();
     $request = $this->get('request_stack')->getCurrentRequest();
     return $this->redirect($request->headers->get('referer'));
+  }
+
+  public function checkout(PanierService $panier, CompteService $compte)
+  {
+    if ($compte->getCompte() == null) {
+      return $this->redirectToRoute('compteConnexion');
+    } else {
+      $panier->checkout();
+      return $this->redirectToRoute('compteCommandes');
+    }
   }
 }

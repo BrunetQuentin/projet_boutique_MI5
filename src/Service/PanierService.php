@@ -5,8 +5,6 @@ namespace App\Service;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Service\BoutiqueService;
 
-use function PHPSTORM_META\map;
-
 // Service pour manipuler le panier et le stocker en session
 class PanierService
 {
@@ -14,16 +12,19 @@ class PanierService
   const PANIER_SESSION = 'panier'; // Le nom de la variable de session du panier
   private $session; // Le service Session
   private $boutique; // Le service Boutique
+  private $compte;
   private $panier; // Tableau associatif idProduit => quantite
   //  donc $this->panier[$i] = quantite du produit dont l'id est $i
   // constructeur du service
   public function __construct(
     SessionInterface $session,
-    BoutiqueService $boutique
+    BoutiqueService $boutique,
+    CompteService $compte
   ) {
     // Récupération des services session et BoutiqueService
     $this->boutique = $boutique;
     $this->session = $session;
+    $this->compte = $compte;
     // Récupération du panier en session s'il existe, init. à vide sinon
     $this->panier = $session->get($this::PANIER_SESSION, []); // initialisation du Panier : à compléter
   }
@@ -95,5 +96,25 @@ class PanierService
   {
     $this->panier = [];
     $this->session->set($this::PANIER_SESSION, $this->panier);
+  }
+
+  public function checkout()
+  {
+    if ($this->compte->isConnect() && !empty($this->panier)) {
+      $validatePanier = [];
+
+      // loop throught panier, get key and value, construct object with id and quantite
+      foreach ($this->panier as $id => $quantite) {
+        $validatePanier[] = [
+          "id" => $id,
+          "quantite" => $quantite,
+        ];
+      }
+      $this->boutique->addCommande(
+        $validatePanier,
+        $this->compte->getCompteId()
+      );
+      $this->vider();
+    }
   }
 }

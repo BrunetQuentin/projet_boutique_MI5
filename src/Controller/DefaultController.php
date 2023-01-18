@@ -20,9 +20,23 @@ class DefaultController extends AbstractController
 
   public function bestSeller(BoutiqueService $boutique)
   {
-    // TODO: Récupérer les 3 meilleurs vendeurs
+    $bestSellers = $boutique->getBestSeller();
+
+    $produits = [];
+
+    foreach ($bestSellers as $key => $value) {
+      $produit = $boutique->findProduitById($key);
+      // if this is a valide product
+      if ($produit) {
+        $produits[$key] = $produit;
+      } else {
+        unset($bestSellers[$key]);
+      }
+    }
+
     return $this->render('bestSeller.html.twig', [
-      "produits" => $boutique->getBestSeller(),
+      "bestSellers" => $bestSellers,
+      "produits" => $produits,
     ]);
   }
 }

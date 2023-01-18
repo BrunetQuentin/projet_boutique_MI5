@@ -11,6 +11,7 @@ class BoutiqueService
   // declare les propriétés du service
   private $categories;
   private $produits;
+  private $commandes;
   // constructeur du service : injection des dépendances et tris
   public function __construct(RequestStack $requestStack)
   {
@@ -20,6 +21,7 @@ class BoutiqueService
     // On transforme le JSON en tableaux d'objets PHP
     $this->categories = json_decode($this->categoriesJson);
     $this->produits = json_decode($this->produitsJson);
+    $this->commandes = json_decode($this->commandesJson);
     // On trie le tableau des catégories selon la locale
     usort($this->categories, function ($categorie1, $categorie2) {
       return $this->compareSelonLocale(
@@ -54,7 +56,7 @@ class BoutiqueService
   }
 
   // renvoie le produit dont id == $idProduit, null si pas trouvé
-  public function findProduitById(int $idProduit): object
+  public function findProduitById(int $idProduit): object |NULL
   {
     $res = array_filter($this->produits, function ($produit) use ($idProduit) {
       return $produit->id == $idProduit;
@@ -82,6 +84,43 @@ class BoutiqueService
           mb_strtolower($search)
         ) !== false;
     });
+  }
+
+  // renvoie les n produits les plus vendus
+  public function getBestSeller(int $n = 4): array
+  {
+    // cherche dans les commandes les produits les plus vendus
+    $produits = [];
+    foreach ($this->commandes as $commande) {
+      foreach ($commande->produits as $produit) {
+        if (array_key_exists($produit->id, $produits)) {
+          $produits[$produit->id] += $produit->quantite;
+        } else {
+          $produits[$produit->id] = $produit->quantite;
+        }
+      }
+    }
+    // trie les produits par quantité décroissante
+    arsort($produits);
+    // renvoie les n premiers produits
+    return array_slice($produits, 0, $n, true);
+  }
+
+  // Ajout de commandes
+  public function addCommande($produits, $idClient): void
+  {
+    $this->commandes[] = [
+      "id" => time(),
+      "idClient" => $idClient,
+      "date" => date("dd/mm/yyyy"),
+      "produits" => $produits
+    ];
+  }
+
+  public function getCommandeByCompteId($compteId){
+    $commandes = [];
+    $this->
+    /////////////////////:: todo
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -224,5 +263,86 @@ JSON;
             "prix" : 50.0
         }
     ]
+JSON;
+  // constuction des commandes
+  private $commandesJson = <<<JSON
+  [
+    {
+      "id": 1,
+      "idClient": 1,
+      "date": "2020-03-01",
+      "produits": [
+        {
+          "id": 1,
+          "quantite": 2
+        },
+        {
+          "id": 2,
+          "quantite": 1
+        },
+        {
+          "id": 3,
+          "quantite": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "idClient": 1,
+      "date": "2020-03-02",
+      "produits": [
+        {
+          "id": 1,
+          "quantite": 1
+        },
+        {
+          "id": 2,
+          "quantite": 1
+        },
+        {
+          "id": 6,
+          "quantite": 15
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "idClient": 1,
+      "date": "2020-03-03",
+      "produits": [
+        {
+          "id": 7,
+          "quantite": 1
+        },
+        {
+          "id": 8,
+          "quantite": 1
+        },
+        {
+          "id": 9,
+          "quantite": 1
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "idClient": 1,
+      "date": "2020-03-04",
+      "produits": [
+        {
+          "id": 10,
+          "quantite": 1
+        },
+        {
+          "id": 11,
+          "quantite": 1
+        },
+        {
+          "id": 12,
+          "quantite": 1
+        }
+      ]
+    }
+  ]
 JSON;
 }
