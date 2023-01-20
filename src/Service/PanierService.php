@@ -110,10 +110,12 @@ class PanierService
           "quantite" => $quantite,
         ];
       }
+
       $this->boutique->addCommande(
         $validatePanier,
         $this->compte->getCompteId()
       );
+
       $this->vider();
     }
   }

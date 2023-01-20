@@ -10,4 +10,14 @@ class BoutiqueController extends AbstractController
       'categories' => $boutique->findAllCategories(),
     ]);
   }
+
+  public function find(BoutiqueService $boutique, $produitName)
+  {
+    $produits = $boutique->findProduitsByLibelleOrTexte($produitName);
+
+    return $this->render('recherche.html.twig', [
+      "recherche" => $produitName,
+      'produits' => $produits,
+    ]);
+  }
 }

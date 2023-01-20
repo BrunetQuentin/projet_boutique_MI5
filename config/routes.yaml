@@ -6,6 +6,10 @@ boutique:
   path: /boutique/
   controller: App\Controller\BoutiqueController::index
 
+boutiqueChercher:
+  path: /boutique/chercher/{produitName}
+  controller: App\Controller\BoutiqueController::find
+
 rayon:
   path: /boutique/rayon/{rayonId}
   controller: App\Controller\RayonController::index

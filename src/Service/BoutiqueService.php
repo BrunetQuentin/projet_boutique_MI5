@@ -109,18 +109,25 @@ class BoutiqueService
   // Ajout de commandes
   public function addCommande($produits, $idClient): void
   {
-    $this->commandes[] = [
+    $commande = array(
       "id" => time(),
       "idClient" => $idClient,
-      "date" => date("dd/mm/yyyy"),
+      "date" => date("d/m/y"),
       "produits" => $produits
-    ];
+    );
+
+    array_push($this->commandes, $commande);
+    echo "<pre>"; var_dump($this->commandes); echo "</pre>";
   }
 
   public function getCommandeByCompteId($compteId){
     $commandes = [];
-    $this->
-    /////////////////////:: todo
+    foreach ($this->commandes as $commande) {
+      if($commande->idClient == $compteId){
+        $commandes[] = $commande;
+      }
+    }
+    return $commandes;
   }
 
   ////////////////////////////////////////////////////////////////////////////
