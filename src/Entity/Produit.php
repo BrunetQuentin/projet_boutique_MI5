@@ -14,9 +14,6 @@ class Produit
   private ?int $id = null;
 
   #[ORM\Column(length: 255)]
-  private ?string $lebelle = null;
-
-  #[ORM\Column(length: 255)]
   private ?string $visuel = null;
 
   #[ORM\Column(length: 255)]
@@ -29,21 +26,12 @@ class Produit
   #[ORM\Column]
   private ?float $prix = null;
 
+  #[ORM\Column(length: 255)]
+  private ?string $libelle = null;
+
   public function getId(): ?int
   {
     return $this->id;
-  }
-
-  public function getLebelle(): ?string
-  {
-    return $this->lebelle;
-  }
-
-  public function setLebelle(string $lebelle): self
-  {
-    $this->lebelle = $lebelle;
-
-    return $this;
   }
 
   public function getVisuel(): ?string
@@ -92,5 +80,17 @@ class Produit
     $this->categorie = $categorie;
 
     return $this;
+  }
+
+  public function setLibelle(string $libelle): self
+  {
+    $this->libelle = $libelle;
+
+    return $this;
+  }
+
+  public function getLibelle(): ?string
+  {
+      return $this->libelle;
   }
 }

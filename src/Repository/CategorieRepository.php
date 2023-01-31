@@ -44,6 +44,11 @@ class CategorieRepository extends ServiceEntityRepository
     return $this->find($id);
   }
 
+  public function findCategories(): array
+  {
+    return $this->findAll();
+  }
+
   //    /**
   //     * @return Categorie[] Returns an array of Categorie objects
   //     */

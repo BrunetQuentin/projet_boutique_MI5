@@ -18,13 +18,19 @@ class RayonController extends AbstractController
     ProduitRepository $produitRepository
   ): Response {
     // bring the category and the products of the category
-    $category = $categorieRepository->find($rayonId);
 
-    print_r($category);
+    $category = $categorieRepository->findCategorieById($rayonId);
+    if (!$category) {
+      throw new Error('Category not found');
+    }
+
+    $produits = $produitRepository->findProduitsByCategorie($rayonId);
+
+    dump($produits);
 
     return $this->render('rayon.html.twig', [
       'category' => $category,
-      'produits' => [],
+      'produits' => $produits,
     ]);
   }
 }

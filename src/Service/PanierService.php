@@ -2,6 +2,9 @@
 
 // src/Service/PanierService.php
 namespace App\Service;
+
+use App\Repository\CategorieRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Service\BoutiqueService;
 
@@ -11,31 +14,36 @@ class PanierService
   ////////////////////////////////////////////////////////////////////////////
   const PANIER_SESSION = 'panier'; // Le nom de la variable de session du panier
   private $session; // Le service Session
-  private $boutique; // Le service Boutique
   private $compte;
   private $panier; // Tableau associatif idProduit => quantite
+  ////////////////////////////////////////////////////////////////////////////
+  private $categorieRepository;
+  private $produitRepository;
+
   //  donc $this->panier[$i] = quantite du produit dont l'id est $i
   // constructeur du service
   public function __construct(
     SessionInterface $session,
-    BoutiqueService $boutique,
-    CompteService $compte
+    CompteService $compte,
+    CategorieRepository $categorieRepository,
+    ProduitRepository $produitRepository
   ) {
     // Récupération des services session et BoutiqueService
-    $this->boutique = $boutique;
     $this->session = $session;
     $this->compte = $compte;
     // Récupération du panier en session s'il existe, init. à vide sinon
     $this->panier = $session->get($this::PANIER_SESSION, []); // initialisation du Panier : à compléter
+    $this->categorieRepository = $categorieRepository;
+    $this->produitRepository = $produitRepository;
   }
   // getContenu renvoie le contenu du panier
   //  tableau d'éléments [ "produit" => un produit, "quantite" => quantite ]
   public function getContenu()
   {
-    return array_map(function ($produit) {
+    return array_map(function ($produitId) {
       return [
-        "produit" => $this->boutique->findProduitById($produit),
-        "quantite" => $this->panier[$produit],
+        "produit" => $this->produitRepository->findProduitById($produitId),
+        "quantite" => $this->panier[$produitId],
       ];
     }, array_keys($this->panier));
   }
@@ -44,7 +52,9 @@ class PanierService
   {
     $total = 0;
     foreach ($this->panier as $idProduit => $quantite) {
-      $total += $this->boutique->findProduitById($idProduit)->prix * $quantite;
+      $total +=
+        $this->produitRepository->findProduitById($idProduit)->getPrix() *
+        $quantite;
     }
     return $total;
   }
@@ -111,10 +121,11 @@ class PanierService
         ];
       }
 
-      $this->boutique->addCommande(
-        $validatePanier,
-        $this->compte->getCompteId()
-      );
+      // a faire
+      // $this->boutique->addCommande(
+      //   $validatePanier,
+      //   $this->compte->getCompteId()
+      // );
 
       $this->vider();
     }

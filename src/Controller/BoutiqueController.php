@@ -1,19 +1,21 @@
 <?php
 namespace App\Controller;
+
+use App\Repository\CategorieRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\BoutiqueService;
 class BoutiqueController extends AbstractController
 {
-  public function index(BoutiqueService $boutique)
+  public function index(CategorieRepository $categorieRepository)
   {
     return $this->render('boutique.html.twig', [
-      'categories' => $boutique->findAllCategories(),
+      'categories' => $categorieRepository->findCategories(),
     ]);
   }
 
-  public function find(BoutiqueService $boutique, $produitName)
+  public function find(ProduitRepository $produitRepository, $produitName)
   {
-    $produits = $boutique->findProduitsByLibelleOrTexte($produitName);
+    $produits = $produitRepository->findProduitsByLibelleOrTexte($produitName);
 
     return $this->render('recherche.html.twig', [
       "recherche" => $produitName,

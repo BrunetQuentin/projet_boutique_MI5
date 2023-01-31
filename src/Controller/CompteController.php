@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Service\BoutiqueService;
 use App\Service\CompteService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -11,11 +10,11 @@ class CompteController extends AbstractController
   {
     return $this->render('compte/connexion.html.twig', []);
   }
-  public function orders(BoutiqueService $boutique, CompteService $compte)
+  public function orders(CompteService $compte)
   {
     $compteId = $compte->getCompteId();
 
-    $boutique->getCommandeByCompteId($compteId);
+    // $boutique->getCommandeByCompteId($compteId);
 
     return $this->render('compte/mesCommandes.html.twig', []);
   }
