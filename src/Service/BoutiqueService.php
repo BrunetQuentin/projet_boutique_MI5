@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class BoutiqueService
 {
   // declare les propriétés du service
-  private $categories;
-  private $produits;
-  private $commandes;
+  public $categories;
+  public $produits;
+  public $commandes;
   // constructeur du service : injection des dépendances et tris
   public function __construct(RequestStack $requestStack)
   {
