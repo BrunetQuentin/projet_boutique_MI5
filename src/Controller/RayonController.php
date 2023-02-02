@@ -1,15 +1,11 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\BoutiqueService;
-use Doctrine\Persistence\ManagerRegistry;
 use Error;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class RayonController extends AbstractController
 {
   public function index(

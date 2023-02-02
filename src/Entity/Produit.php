@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
@@ -28,6 +30,14 @@ class Produit
 
   #[ORM\Column(length: 255)]
   private ?string $libelle = null;
+
+  #[ORM\OneToMany(mappedBy: 'article', targetEntity: LigneCommande::class)]
+  private Collection $ligneCommandes;
+
+  public function __construct()
+  {
+      $this->ligneCommandes = new ArrayCollection();
+  }
 
   public function getId(): ?int
   {
@@ -91,6 +101,36 @@ class Produit
 
   public function getLibelle(): ?string
   {
-      return $this->libelle;
+    return $this->libelle;
+  }
+
+  /**
+   * @return Collection<int, LigneCommande>
+   */
+  public function getLigneCommandes(): Collection
+  {
+      return $this->ligneCommandes;
+  }
+
+  public function addLigneCommande(LigneCommande $ligneCommande): self
+  {
+      if (!$this->ligneCommandes->contains($ligneCommande)) {
+          $this->ligneCommandes->add($ligneCommande);
+          $ligneCommande->setArticle($this);
+      }
+
+      return $this;
+  }
+
+  public function removeLigneCommande(LigneCommande $ligneCommande): self
+  {
+      if ($this->ligneCommandes->removeElement($ligneCommande)) {
+          // set the owning side to null (unless already changed)
+          if ($ligneCommande->getArticle() === $this) {
+              $ligneCommande->setArticle(null);
+          }
+      }
+
+      return $this;
   }
 }
