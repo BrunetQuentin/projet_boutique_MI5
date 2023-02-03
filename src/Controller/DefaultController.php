@@ -1,5 +1,7 @@
 <?php
 namespace App\Controller;
+
+use App\Repository\LigneCommandeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Service\PanierService;
 
@@ -17,26 +19,15 @@ class DefaultController extends AbstractController
     ]);
   }
 
-  public function bestSeller()
+  public function bestSeller(LigneCommandeRepository $ligneCommandeRepository)
   {
     // do the commande repository --> next step
-    $bestSellers = $boutique->getBestSeller();
+    $bestSellers = $ligneCommandeRepository->findBestSeller(4);
 
-    $produits = [];
-
-    foreach ($bestSellers as $key => $value) {
-      $produit = $boutique->findProduitById($key);
-      // if this is a valide product
-      if ($produit) {
-        $produits[$key] = $produit;
-      } else {
-        unset($bestSellers[$key]);
-      }
-    }
+    dump($bestSellers);
 
     return $this->render('bestSeller.html.twig', [
       "bestSellers" => $bestSellers,
-      "produits" => $produits,
     ]);
   }
 }

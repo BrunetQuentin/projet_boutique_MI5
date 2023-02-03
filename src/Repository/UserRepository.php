@@ -66,13 +66,13 @@ class UserRepository extends ServiceEntityRepository implements
     return $this->getEntityManager()->find(USER::class, $id);
   }
 
-  public function findUserByEmail(string $email): array
+  public function findUserByEmail(string $email): ?User
   {
     return $this->createQueryBuilder('u')
       ->andWhere('u.email EQUALS :val')
       ->setParameter('val', '%' . $email . '%')
       ->getQuery()
-      ->getResult();
+      ->getResult()[0];
   }
   //    /**
   //     * @return User[] Returns an array of User objects

@@ -51,10 +51,11 @@ class ProduitRepository extends ServiceEntityRepository
   public function findProduitById(int $id): ?Produit
   {
     return $this->createQueryBuilder('p')
+      ->join('p.categorie', 'c')
       ->andWhere('p.id = :val')
       ->setParameter('val', $id)
       ->getQuery()
-      ->getOneOrNullResult();
+      ->getResult()[0];
   }
 
   public function findProduitsByLibelleOrTexte(string $libelle): array

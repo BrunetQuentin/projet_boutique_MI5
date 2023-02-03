@@ -5,9 +5,7 @@ namespace App\Service;
 
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Service\BoutiqueService;
 
-// Service pour manipuler le panier et le stocker en session
 class CompteService
 {
   private $compte;
@@ -21,7 +19,7 @@ class CompteService
   ) {
     // Récupération des services session
     $this->session = $session;
-    $this->$userRepository = $userRepository;
+    $this->userRepository = $userRepository;
 
     // recupération de laconnexion en session
     $this->compte = $this->session->get('connect', null);

@@ -36,7 +36,7 @@ class Produit
 
   public function __construct()
   {
-      $this->ligneCommandes = new ArrayCollection();
+    $this->ligneCommandes = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -80,7 +80,7 @@ class Produit
     return $this;
   }
 
-  public function getCategorie(): ?string
+  public function getCategorie(): ?Categorie
   {
     return $this->categorie;
   }
@@ -109,28 +109,28 @@ class Produit
    */
   public function getLigneCommandes(): Collection
   {
-      return $this->ligneCommandes;
+    return $this->ligneCommandes;
   }
 
   public function addLigneCommande(LigneCommande $ligneCommande): self
   {
-      if (!$this->ligneCommandes->contains($ligneCommande)) {
-          $this->ligneCommandes->add($ligneCommande);
-          $ligneCommande->setArticle($this);
-      }
+    if (!$this->ligneCommandes->contains($ligneCommande)) {
+      $this->ligneCommandes->add($ligneCommande);
+      $ligneCommande->setArticle($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeLigneCommande(LigneCommande $ligneCommande): self
   {
-      if ($this->ligneCommandes->removeElement($ligneCommande)) {
-          // set the owning side to null (unless already changed)
-          if ($ligneCommande->getArticle() === $this) {
-              $ligneCommande->setArticle(null);
-          }
+    if ($this->ligneCommandes->removeElement($ligneCommande)) {
+      // set the owning side to null (unless already changed)
+      if ($ligneCommande->getArticle() === $this) {
+        $ligneCommande->setArticle(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 }
