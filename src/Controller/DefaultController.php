@@ -21,10 +21,7 @@ class DefaultController extends AbstractController
 
   public function bestSeller(LigneCommandeRepository $ligneCommandeRepository)
   {
-    // do the commande repository --> next step
     $bestSellers = $ligneCommandeRepository->findBestSeller(4);
-
-    dump($bestSellers);
 
     return $this->render('bestSeller.html.twig', [
       "bestSellers" => $bestSellers,

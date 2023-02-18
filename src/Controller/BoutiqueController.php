@@ -8,6 +8,9 @@ class BoutiqueController extends AbstractController
 {
   public function index(CategorieRepository $categorieRepository)
   {
+
+    dump($this->getUser());
+
     return $this->render('boutique.html.twig', [
       'categories' => $categorieRepository->findCategories(),
     ]);

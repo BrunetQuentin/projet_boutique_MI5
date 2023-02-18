@@ -9,16 +9,19 @@
         </h3>
       </div>
       <div class="card-body">
-        <form method="post" action="{{ relative_path('connexion/login') }}">
+      {% if error is defined and error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
+        <form method="post" action="{{ path('app_login') }}">
           <div class="form-group">
             <label for="inputEmail">Email</label>
             <input type="email"
-              value=""
+              value="{{ last_username ??"" }}"
               name="email"
               id="inputEmail"
               class="form-control"
-              required=""
-              autofocus="" />
+              required
+              autofocus />
           </div>
           <div class="form-group">
             <label for="inputPassword">Mot de Passe</label>
@@ -26,10 +29,10 @@
               name="password"
               id="inputPassword"
               class="form-control"
-              required="" />
+              required />
             <input type="hidden"
               name="_csrf_token"
-              value="_In8KEFgtL0FbI6SMisWJT-kPNV86cN5CiNX2QRyWvc" />
+              value="{{ csrf_token('authenticate') }}" />
           </div>
           <div class="col-md-12 btn-group" style="padding:0px">
             <button class="btn btn-primary" type="submit">Connexion</button>
@@ -45,35 +48,64 @@
         </h3>
       </div>
       <div class="card-body">
-        <form name="usager" method="post" action="/mi5/fr/usager/inscription">
+        {{ form_start(form)}}
+        <div>
+          {{ form_errors(form) }}
+          {{ form_errors(form.email) }}
+          {{ form_errors(form.password) }}
+          {{ form_errors(form.prenom) }}
+          {{ form_errors(form.nom) }}
+        </div> 
           <div id="usager">
             <div class="form-group">
-              <label for="usager_email" class="required">Email</label><input type="email"
-                id="usager_email"
-                name="usager[email]"
+              {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+              {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+              {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+              {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            
+            {{ form_row(form._token) }}
+            <div class="col-md-12 btn-group" style="padding:0px">
+              <button class="btn btn-primary" type="submit">Inscription</button>
+            </div>
+          </div>
+        {{ form_end(form, {render_rest: false}) }}
+        {# <form name="user" method="post">
+          <div id="usager">
+            <div class="form-group">
+              <label for="user_email" class="required">Email</label>
+              <input type="email"
+                id="user_email"
+                name="user[email]"
                 required="required"
                 maxlength="180"
                 class="form-control" />
             </div>
             <div class="form-group">
-              <label for="usager_password" class="required">Mot de Passe</label><input type="password"
-                id="usager_password"
-                name="usager[password]"
+              <label for="user_password" class="required">Mot de Passe</label><input type="password"
+                id="user_password"
+                name="user[password]"
                 required="required"
                 class="form-control" />
             </div>
             <div class="form-group">
-              <label for="usager_nom" class="required">Nom</label><input type="text"
-                id="usager_nom"
-                name="usager[nom]"
+              <label for="user_nom" class="required">Nom</label><input type="text"
+                id="user_nom"
+                name="user[nom]"
                 required="required"
                 maxlength="255"
                 class="form-control" />
             </div>
             <div class="form-group">
-              <label for="usager_prenom" class="required">Prenom</label><input type="text"
-                id="usager_prenom"
-                name="usager[prenom]"
+              <label for="user_prenom" class="required">Prenom</label><input type="text"
+                id="user_prenom"
+                name="user[prenom]"
                 required="required"
                 maxlength="255"
                 class="form-control" />
@@ -85,13 +117,13 @@
               <div class="BDC_CaptchaDiv"
                 id="ExampleCaptcha_CaptchaDiv"
                 style="width:280px; height:50px;">
-                <!--     
-      -->
+                <!--            
+             -->
                 <div class="BDC_CaptchaImageDiv"
                   id="ExampleCaptcha_CaptchaImageDiv"
                   style="width:250px !important; height:50px !important;">
-                  <!--     
-        -->
+                  <!--            
+               -->
                   <div class="BDC_CaptchaImageDiv"
                     style="width:250px; height:40px;">
                     <img class="BDC_CaptchaImage"
@@ -100,21 +132,21 @@
                       alt="Retype the CAPTCHA code from the image"
                       style="" />
                   </div>
-                  <!--     
-        --><a href="//captcha.org/captcha.html?symfony"
+                  <!--            
+               --><a href="//captcha.org/captcha.html?symfony"
                     title="BotDetect CAPTCHA Library for Symfony"
                     style="display: block !important; height: 10px !important; margin: 0 !important; padding: 0 !important; font-size: 9px !important; line-height: 9px !important; visibility: visible !important; font-family: Verdana, DejaVu Sans, Bitstream Vera Sans, Verdana Ref, sans-serif !important; vertical-align: middle !important; text-align: center !important; text-decoration: none !important; background-color: #f8f8f8 !important; color: #606060 !important;">
                     BotDetect CAPTCHA Library for Symfony
-                  </a><!--     
-      -->
+                  </a><!--            
+             -->
                 </div>
-                <!--     
-      -->
+                <!--            
+             -->
                 <div class="BDC_CaptchaIconsDiv"
                   id="ExampleCaptcha_CaptchaIconsDiv"
                   style="width: 24px !important;">
-                  <!--     
-        --><a class="BDC_ReloadLink"
+                  <!--            
+               --><a class="BDC_ReloadLink"
                     id="ExampleCaptcha_ReloadLink"
                     href="#"
                     title="Change the CAPTCHA code"
@@ -123,8 +155,8 @@
                       id="ExampleCaptcha_ReloadIcon"
                       src="../captcha-handler?get=bdc-reload-icon.gif"
                       alt="Change the CAPTCHA code" />
-                  </a><!--     
-        --><a rel="nofollow"
+                  </a><!--            
+               --><a rel="nofollow"
                     class="BDC_SoundLink"
                     id="ExampleCaptcha_SoundLink"
                     href="../captcha-handler?get=sound&amp;c=ExampleCaptcha&amp;t=9a8c0838ae7fed93f298ac3a25cd039b"
@@ -134,14 +166,14 @@
                       id="ExampleCaptcha_SoundIcon"
                       src="../captcha-handler?get=bdc-sound-icon.gif"
                       alt="Speak the CAPTCHA code" />
-                  </a><!--     
-        -->
+                  </a><!--            
+               -->
                   <div class="BDC_Placeholder"
                     id="ExampleCaptcha_AudioPlaceholder">
                     &nbsp;
                   </div>
-                  <!--     
-      -->
+                  <!--            
+             -->
                 </div>
                 <script type="text/javascript"
                   async=""
@@ -171,21 +203,21 @@
               </div>
               <input type="text"
                 id="captcha"
-                name="usager[captcha]"
+                name="user[captcha]"
                 required="required"
                 class="form-control"
                 autocomplete="off"
                 style="text-transform: uppercase;" />
             </div>
             <input type="hidden"
-              id="usager__token"
-              name="usager[_token]"
-              value="nDuOBwkN_sZ5BMF9QAHXjvLwrXxVUsoWWGHa1iT_YNA" />
+              id="user__token"
+              name="user[_token]"
+              value="{{ csrf_token('authenticate') }}" />
           </div>
           <div class="col-md-12 btn-group" style="padding:0px">
             <button class="btn btn-primary">Inscription</button>
           </div>
-        </form>
+        </form> #}
       </div>
     </div>
     <div class="col-md-1"></div>

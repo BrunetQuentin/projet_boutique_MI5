@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
@@ -20,26 +21,37 @@ class UserController extends AbstractController
 
   public function new(
     Request $request,
-    UserRepository $userRepository
+    UserRepository $userRepository,
+    UserPasswordHasherInterface $passwordHasher
   ): Response {
-    $user = new User();
-    $form = $this->createForm(UserType::class, $user);
-    $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
+    if ($this->getUser() != null) {
+      return $this->redirectToRoute('compteDetail');
+  }
+
+  $user = new User();
+
+  $form = $this->createForm(UserType::class, $user);
+  $form->handleRequest($request);
+
+  $user->setRoles(array('ROLE_USER'));
+
+  if ($form->isSubmitted() && $form->isValid()) {
+
+      $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+      $user->setPassword($hashedPassword);
+
       $userRepository->save($user, true);
 
-      return $this->redirectToRoute(
-        'app_user_index',
-        [],
-        Response::HTTP_SEE_OTHER
-      );
-    }
+      dump($user);
 
-    return $this->renderForm('user/new.html.twig', [
+      return $this->redirectToRoute('compteDetail', [], Response::HTTP_SEE_OTHER);
+  }
+
+  return $this->renderForm('compte/connexion.html.twig', [
       'user' => $user,
       'form' => $form,
-    ]);
+  ]);
   }
 
   // #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]

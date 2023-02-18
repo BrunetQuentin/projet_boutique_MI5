@@ -3,13 +3,11 @@ namespace App\Controller;
 
 use App\Service\CompteService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Response;
 
 class CompteController extends AbstractController
 {
-  public function connect()
-  {
-    return $this->render('compte/connexion.html.twig', []);
-  }
   public function orders(CompteService $compte)
   {
     $compteId = $compte->getCompteId();
@@ -18,28 +16,48 @@ class CompteController extends AbstractController
 
     return $this->render('compte/mesCommandes.html.twig', []);
   }
+
   public function account()
   {
     return $this->render('compte/monCompte.html.twig', []);
   }
+
   public function deconnect()
   {
     return $this->render('compte/monCompte.html.twig', []);
   }
-  public function login(CompteService $compteService)
+
+  // public function login(CompteService $compteService)
+  // {
+  //   $email = $_POST["email"];
+  //   $password = $_POST["password"];
+
+  //   if (!isset($email) || !isset($password)) {
+  //     return $this->redirectToRoute("compteConnexion");
+  //   }
+
+  //   $compte = $compteService->connect($email, $password);
+
+  //   if (!isset($compte)) {
+  //     return $this->redirectToRoute("compteConnexion");
+  //   }
+  //   return $this->redirectToRoute("boutique");
+  // }
+
+  public function connect(AuthenticationUtils $authenticationUtils): Response
   {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-
-    if (!isset($email) || !isset($password)) {
-      return $this->redirectToRoute("compteConnexion");
+    if ($this->getUser()) {
+      return $this->redirectToRoute('boutique');
     }
 
-    $compte = $compteService->connect($email, $password);
+    // get the login error if there is one
+    $error = $authenticationUtils->getLastAuthenticationError();
+    // last username entered by the user
+    $lastUsername = $authenticationUtils->getLastUsername();
 
-    if (!isset($compte)) {
-      return $this->redirectToRoute("compteConnexion");
-    }
-    return $this->redirectToRoute("boutique");
+    return $this->render('compte/connexion.html.twig', [
+      'last_username' => $lastUsername,
+      'error' => $error,
+    ]);
   }
 }
