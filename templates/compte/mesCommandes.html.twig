@@ -44,7 +44,8 @@
                 <td>
                   {{
                     commande.ligneCommandes|reduce((total, ligneCommande) => total + (ligneCommande.prix * ligneCommande.quantite), 0)
-                  }}&nbsp;€
+                    |devise|format_currency( getDevise(), {rounding_mode: 'floor'})
+                  }}
                 </td>
                 <td>
                   {% if commande.getStatus == 'En cours' %}

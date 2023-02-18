@@ -4,7 +4,7 @@
     <div class="card-header">
       <h1>
         <i class="fas fa-shopping-cart"></i> {{ nbProduits }} Produit(s) :
-        <b>{{ total }}&nbsp;€</b>
+        <b>{{ total|devise|format_currency( getDevise(), {rounding_mode: 'floor'}) }}</b>
       </h1>
       <div class="col-md-12 btn-group btn-group-lg" role="group">
         <a class="btn btn-primary" href="{{ relative_path('boutique') }}">
@@ -57,7 +57,7 @@
                   </a>
                 </td>
                 <td class="text-right">
-                  {{ produit.produit.prix }}&nbsp;€
+                  {{ produit.produit.prix|devise|format_currency( getDevise(), {rounding_mode: 'floor'}) }}
                 </td>
                 <td>
                   <a href="{{
@@ -77,7 +77,7 @@
                   </a>
                 </td>
                 <td class="text-right">
-                  {{ produit.quantite * produit.produit.prix }}&nbsp;€
+                  {{ (produit.quantite * produit.produit.prix)|devise|format_currency( getDevise(), {rounding_mode: 'floor'}) }}
                 </td>
                 <td>
                   <a href="{{
@@ -104,7 +104,7 @@
                 Total
               </th>
               <th class="text-right">
-                {{ total }}&nbsp;€
+                {{ total|devise|format_currency( getDevise(), {rounding_mode: 'floor'}) }}
               </th>
               <th>
                 <a href="{{ relative_path('/panier/vider') }}">

@@ -83,29 +83,29 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false">
-          EUR
+          {{getDevise()}}
         </span>
         <div class="dropdown-menu"
           aria-labelledby="dropdown02"
           style="min-width: 5rem;">
           <a class="dropdown-item"
-            href="/mi5/fr/changer_monnaie/CAD/home/%7B%22_locale%22:%22fr%22%7D">
+            href="{{ path('changeDevise', {'devise':'CAD'}) }}">
             CAD
           </a>
           <a class="dropdown-item"
-            href="/mi5/fr/changer_monnaie/USD/home/%7B%22_locale%22:%22fr%22%7D">
+            href="{{ path('changeDevise', {'devise':'USD'}) }}">
             USD
           </a>
           <a class="dropdown-item"
-            href="/mi5/fr/changer_monnaie/GBP/home/%7B%22_locale%22:%22fr%22%7D">
+            href="{{ path('changeDevise', {'devise':'GBP'}) }}">
             GBP
           </a>
           <a class="dropdown-item"
-            href="/mi5/fr/changer_monnaie/PHP/home/%7B%22_locale%22:%22fr%22%7D">
+            href="{{ path('changeDevise', {'devise':'PHP'}) }}">
             PHP
           </a>
           <a class="dropdown-item"
-            href="/mi5/fr/changer_monnaie/IDR/home/%7B%22_locale%22:%22fr%22%7D">
+            href="{{ path('changeDevise', {'devise':'IDR'}) }}">
             IDR
           </a>
         </div>

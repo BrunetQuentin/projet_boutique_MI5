@@ -29,7 +29,7 @@
               <h2>
                 <span class="badge badge-primary">
                   <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;
-                  {{ produit.prix }}&nbsp;€
+                  {{ produit.prix|devise|format_currency( getDevise(), {rounding_mode: 'floor'}) }}
                 </span>
               </h2>
             </div>

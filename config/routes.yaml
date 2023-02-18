@@ -75,3 +75,7 @@ compteCommandes:
 compteDeconnexion:
   path: /compte/deconnexion
   controller: App\Controller\SecuriteController::logout
+
+changeDevise:
+  path: /changeDevise/{devise}
+  controller: App\Controller\DeviseController::index

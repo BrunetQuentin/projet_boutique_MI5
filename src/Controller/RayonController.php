@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Repository\CategorieRepository;
@@ -6,6 +7,7 @@ use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Error;
 use Symfony\Component\HttpFoundation\Response;
+
 class RayonController extends AbstractController
 {
   public function index(
@@ -21,8 +23,6 @@ class RayonController extends AbstractController
     }
 
     $produits = $produitRepository->findProduitsByCategorie($rayonId);
-
-    dump($produits);
 
     return $this->render('rayon.html.twig', [
       'category' => $category,
