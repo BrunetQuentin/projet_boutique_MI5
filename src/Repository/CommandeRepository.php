@@ -44,6 +44,7 @@ class CommandeRepository extends ServiceEntityRepository
     {
         $commande = new Commande();
         $commande->setUser($user);
+        // save the Date of the commande with the exact time
         $commande->setDateCommande(new \DateTime());
         $commande->setStatus('En cours');
         $commande->setUser($user);

@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Service\CompteService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Response;

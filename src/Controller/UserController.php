@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
@@ -22,10 +23,10 @@ class UserController extends AbstractController
   public function new(
     Request $request,
     UserRepository $userRepository,
-    UserPasswordHasherInterface $passwordHasher
+    UserPasswordHasherInterface $passwordHasher,
+    AuthenticationUtils $authenticationUtils,
   ): Response {
-
-    if ($this->getUser() != null) {
+  if ($this->getUser() != null) {
       return $this->redirectToRoute('compteDetail');
   }
 
@@ -43,12 +44,18 @@ class UserController extends AbstractController
 
       $userRepository->save($user, true);
 
-      dump($user);
-
-      return $this->redirectToRoute('compteDetail', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('compteConnexion', [], Response::HTTP_SEE_OTHER);
   }
 
+  // error and last username are in GET parameters
+  $last_username = $authenticationUtils->getLastUsername();
+  $error = $authenticationUtils->getLastAuthenticationError();
+
+  dump($error);
+
   return $this->renderForm('compte/connexion.html.twig', [
+      'last_username' => $last_username ,
+      'error' => $error,
       'user' => $user,
       'form' => $form,
   ]);

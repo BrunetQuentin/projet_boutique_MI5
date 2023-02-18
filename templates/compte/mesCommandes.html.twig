@@ -36,7 +36,7 @@
                   {{ commande.id }}
                 </td>
                 <td>
-                  {{ commande.getDateCommande|date('d/m/Y') }} à {{ commande.getDateCommande|date('H:i:s') }}
+                  {{ commande.getDateCommande|date('d/m/Y') }}
                 </td>
                 <td>
                   {{ commande.ligneCommandes|length }}
@@ -68,8 +68,7 @@
                       data-placement="right"
                       data-original-title="Commande annulée">
                     </i>
-                  {% endif %}
-                  {% if commande.getStatus == 'Livré' %}
+                  {% elseif commande.getStatus == 'Livré' %}
                     <i class="fas fa-check"
                       data-toggle="tooltip"
                       title=""

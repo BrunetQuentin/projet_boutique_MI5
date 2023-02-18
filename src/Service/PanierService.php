@@ -24,13 +24,11 @@ class PanierService
   // constructeur du service
   public function __construct(
     SessionInterface $session,
-    CompteService $compte,
     CategorieRepository $categorieRepository,
     ProduitRepository $produitRepository
   ) {
     // Récupération des services session et BoutiqueService
     $this->session = $session;
-    $this->compte = $compte;
     // Récupération du panier en session s'il existe, init. à vide sinon
     $this->panier = $session->get($this::PANIER_SESSION, []); // initialisation du Panier : à compléter
     $this->categorieRepository = $categorieRepository;
@@ -110,7 +108,7 @@ class PanierService
 
   public function checkout()
   {
-    if ($this->compte->isConnect() && !empty($this->panier)) {
+    if (!empty($this->panier)) {
       $validatePanier = [];
 
       // loop throught panier, get key and value, construct object with id and quantite

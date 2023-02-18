@@ -7,7 +7,6 @@ use App\Repository\LigneCommandeRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Service\PanierService;
-use App\Service\CompteService;
 
 class PanierController extends AbstractController
 {

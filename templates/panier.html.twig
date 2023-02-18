@@ -10,10 +10,12 @@
         <a class="btn btn-primary" href="{{ relative_path('boutique') }}">
           Continuer les Courses
         </a>
-        <a class="btn btn-primary"
-          href="{{ relative_path('panier/commander') }}">
-          Passer la Commande
-        </a>
+        {% if nbProduits > 0 %}
+          <a class="btn btn-primary"
+            href="{{ relative_path('panier/commander') }}">
+            Passer la Commande
+          </a>
+        {% endif %}
       </div>
     </div>
     <div class="card-body">
