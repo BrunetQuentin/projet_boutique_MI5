@@ -70,6 +70,13 @@ class Commande
         return $this->ligneCommandes;
     }
 
+    public function setLigneCommandes(Collection $ligneCommandes): self
+    {
+        $this->ligneCommandes = $ligneCommandes;
+
+        return $this;
+    }
+
     public function addLigneCommande(LigneCommande $ligneCommande): self
     {
         if (!$this->ligneCommandes->contains($ligneCommande)) {

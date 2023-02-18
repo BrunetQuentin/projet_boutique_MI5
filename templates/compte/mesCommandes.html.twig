@@ -30,52 +30,56 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="text-danger" style="font-weight: bold;">
-              <td>
-                81
-              </td>
-              <td>
-                18 janv. 2023 à 10:26:08
-              </td>
-              <td>
-                1
-              </td>
-              <td>
-                2,84&nbsp;€
-              </td>
-              <td>
-                <i class="fas fa-hourglass-half"
-                  data-toggle="tooltip"
-                  title=""
-                  data-placement="right"
-                  data-original-title="validation en Attente">
-
-                </i>
-              </td>
-            </tr>
-            <tr class="text-danger">
-              <td>
-                80
-              </td>
-              <td>
-                18 janv. 2023 à 10:25:56
-              </td>
-              <td>
-                3
-              </td>
-              <td>
-                19,00&nbsp;€
-              </td>
-              <td>
-                <i class="fas fa-hourglass-half"
-                  data-toggle="tooltip"
-                  title=""
-                  data-placement="right"
-                  data-original-title="validation en Attente">
-
-                </i>
-              </td>
-            </tr>
+            {% for commande in app.user.commandes %}
+              <tr>
+                <td>
+                  {{ commande.id }}
+                </td>
+                <td>
+                  {{ commande.getDateCommande|date('d/m/Y') }} à {{ commande.getDateCommande|date('H:i:s') }}
+                </td>
+                <td>
+                  {{ commande.ligneCommandes|length }}
+                </td>
+                <td>
+                  {{
+                    commande.ligneCommandes|reduce((total, ligneCommande) => total + (ligneCommande.prix * ligneCommande.quantite), 0)
+                  }}&nbsp;€
+                </td>
+                <td>
+                  {% if commande.getStatus == 'En cours' %}
+                    <i class="fas fa-hourglass-half"
+                      data-toggle="tooltip"
+                      title=""
+                      data-placement="right"
+                      data-original-title="validation en Attente">
+                    </i>
+                  {% elseif commande.getStatus == 'Validé' %}
+                    <i class="fas fa-check"
+                      data-toggle="tooltip"
+                      title=""
+                      data-placement="right"
+                      data-original-title="Commande validée">
+                    </i>
+                  {% elseif commande.getStatus == 'Annulé' %}
+                    <i class="fas fa-times-circle"
+                      data-toggle="tooltip" 
+                      title=""
+                      data-placement="right"
+                      data-original-title="Commande annulée">
+                    </i>
+                  {% endif %}
+                  {% if commande.getStatus == 'Livré' %}
+                    <i class="fas fa-check"
+                      data-toggle="tooltip"
+                      title=""
+                      data-placement="right"
+                      data-original-title="Livré">
+                    </i>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>

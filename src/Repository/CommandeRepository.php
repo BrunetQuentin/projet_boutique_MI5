@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Commande;
+use App\Entity\LigneCommande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,18 @@ class CommandeRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function create($user)
+    {
+        $commande = new Commande();
+        $commande->setUser($user);
+        $commande->setDateCommande(new \DateTime());
+        $commande->setStatus('En cours');
+        $commande->setUser($user);
+
+        $this->save($commande, true);
+        return $commande;
     }
 
 //    /**

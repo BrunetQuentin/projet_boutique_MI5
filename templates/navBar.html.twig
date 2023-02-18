@@ -35,22 +35,22 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false">
-          <i class="fas fa-user"></i> Connexion
+          <i class="fas {{app.user ? 'fa-user-check' : 'fa-user-check'}}"></i> {{app.user ? app.user.prenom : 'Connexion'}}
         </span>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item"
+          <a class="dropdown-item {{app.user ? 'disabled' : ''}}"
             href="{{ relative_path('/compte/connexion/') }}">
             Connexion/Inscription
           </a>
-          <a class="dropdown-item disabled"
+          <a class="dropdown-item {{app.user ? '' : 'disabled'}}"
             href="{{ relative_path('/compte/detail/') }}">
             Mon Compte
           </a>
-          <a class="dropdown-item disabled"
+          <a class="dropdown-item {{app.user ? '' : 'disabled'}}"
             href="{{ relative_path('/compte/commandes/') }}">
             Mes Commandes
           </a>
-          <a class="dropdown-item disabled"
+          <a class="dropdown-item {{app.user ? '' : 'disabled'}}"
             href="{{ relative_path('/compte/deconnexion/') }}">
             Déconnexion
           </a>

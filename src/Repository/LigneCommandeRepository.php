@@ -54,6 +54,18 @@ class LigneCommandeRepository extends ServiceEntityRepository
       ->getResult();
   }
 
+  public function create($article, $quantite, $commande)
+  {
+    $ligneCommande = new LigneCommande();
+    $ligneCommande->setArticle($article);
+    $ligneCommande->setQuantite($quantite);
+    $ligneCommande->setCommande($commande);
+    $ligneCommande->setPrix($article->getPrix());
+
+    $this->save($ligneCommande, true);
+    return $ligneCommande;
+  }
+
   //    /**
   //     * @return LigneCommande[] Returns an array of LigneCommande objects
   //     */

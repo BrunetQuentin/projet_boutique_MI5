@@ -8,17 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CompteController extends AbstractController
 {
-  public function orders(CompteService $compte)
+  public function orders()
   {
-    $compteId = $compte->getCompteId();
-
-    // $boutique->getCommandeByCompteId($compteId);
-
     return $this->render('compte/mesCommandes.html.twig', []);
   }
 
   public function account()
   {
+
     return $this->render('compte/monCompte.html.twig', []);
   }
 

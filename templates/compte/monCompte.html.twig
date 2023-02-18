@@ -16,7 +16,7 @@
                 N° Client
               </th>
               <td>
-                42
+                {{ app.user.id }}
               </td>
             </tr>
             <tr>
@@ -24,7 +24,7 @@
                 Nom
               </th>
               <td>
-                BRUNET
+                {{ app.user.nom }}
               </td>
             </tr>
             <tr>
@@ -32,7 +32,7 @@
                 Prénom
               </th>
               <td>
-                Quentin
+                {{ app.user.prenom }}
               </td>
             </tr>
             <tr>
@@ -40,7 +40,7 @@
                 Email
               </th>
               <td>
-                brunet@b
+                {{ app.user.email }}
               </td>
             </tr>
             <tr>
@@ -48,8 +48,8 @@
                 Activité
               </th>
               <td>
-                <a class="btn btn-primary" href="/mi5/fr/usager/commandes">
-                  <span class="badge badge-light">0</span> Commande(s)
+                <a class="btn btn-primary" href="{{path('compteCommandes')}}">
+                  <span class="badge badge-light">{{ app.user.commandes|length }}</span> Commande(s)
                 </a>
               </td>
             </tr>

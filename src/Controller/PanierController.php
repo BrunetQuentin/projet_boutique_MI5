@@ -1,5 +1,10 @@
 <?php
 namespace App\Controller;
+
+use App\Entity\LigneCommande;
+use App\Repository\CommandeRepository;
+use App\Repository\LigneCommandeRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Service\PanierService;
 use App\Service\CompteService;
@@ -47,13 +52,31 @@ class PanierController extends AbstractController
     return $this->redirect($request->headers->get('referer'));
   }
 
-  public function checkout(PanierService $panier, CompteService $compte)
+  public function checkout(PanierService $panier, CommandeRepository $commandeRepository, LigneCommandeRepository $ligneCommandeRepository, ProduitRepository $produitRepository)
   {
-    if ($compte->getCompte() == null) {
-      return $this->redirectToRoute('compteConnexion');
-    } else {
-      $panier->checkout();
+    if($this->getUser()){
+
+      $contenu = $panier->getContenu();
+
+      $ligneCommandes = [];
+
+      $commande = $commandeRepository->create($this->getUser());
+
+      foreach ($contenu as $ligneCommande) {
+        dump($ligneCommande['produit']);
+        $ligneCommande = $ligneCommandeRepository->create($ligneCommande['produit'] , $ligneCommande['quantite'], $commande);
+
+        $ligneCommandes[] = $ligneCommande;
+        $commande->addLigneCommande($ligneCommande);
+      }
+
+      $commandeRepository->save($commande, true);
+
+      $panier->vider();
+
       return $this->redirectToRoute('compteCommandes');
+    } else {
+      return $this->redirectToRoute('app_login');
     }
   }
 }
