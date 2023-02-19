@@ -1,6 +1,6 @@
 <ul class="list-group">
   {% for bestSeller in bestSellers %}
-    <a href="{{ relative_path('/boutique/rayon/') }}{{
+    <a href="{{ path('rayon') }}/{{
       bestSeller.idCategorie
       }}">
       <li class="list-group-item text-center clickable">

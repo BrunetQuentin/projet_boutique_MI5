@@ -3,16 +3,16 @@
   <div class="card col-md-12">
     <div class="card-header">
       <h1>
-        <i class="fas fa-shopping-cart"></i> {{ nbProduits }} Produit(s) :
+        <i class="fas fa-shopping-cart"></i> {{ nbProduits }} {{ 'products'|trans }} :
         <b>{{ total|devise|format_currency( getDevise(), {rounding_mode: 'floor'}) }}</b>
       </h1>
       <div class="col-md-12 btn-group btn-group-lg" role="group">
-        <a class="btn btn-primary" href="{{ relative_path('boutique') }}">
-          Continuer les Courses
+        <a class="btn btn-primary" href="{{ path('boutique') }}">
+          {{ 'cart.continueShopping'|trans }}
         </a>
         {% if nbProduits > 0 %}
           <a class="btn btn-primary"
-            href="{{ relative_path('panier/commander') }}">
+            href="{{ path('panierCommander') }}">
             Passer la Commande
           </a>
         {% endif %}
@@ -25,7 +25,7 @@
             <tr>
               <th></th>
               <th>
-                Produit
+                {{ 'product'|trans }}
               </th>
               <th class="text-right">
                 Prix
@@ -37,7 +37,7 @@
                 Total
               </th>
               <th>
-                Supprimer
+                {{ 'delete'|trans }}
               </th>
             </tr>
           </thead>
@@ -50,7 +50,7 @@
                     alt="{{ produit.produit.libelle }}" />
                 </td>
                 <td>
-                  <a href="{{ relative_path('boutique/rayon/') }}{{
+                  <a href="{{ path('rayon') }}{{
                     produit.produit.categorie.id
                     }}">
                     <b>{{ produit.produit.libelle }}</b>
@@ -61,18 +61,20 @@
                 </td>
                 <td>
                   <a href="{{
-                    relative_path(
-                      '/panier/enlever/'
+                    path(
+                      'panierEnlever',
+                      { 'produitId': produit.produit.id }
                     )
-                    }}{{ produit.produit.id|raw }}">
+                    }}">
                     <i class="fas fa-minus-square text-muted"></i>
                   </a>
                   {{ produit.quantite }}
                   <a href="{{
-                    relative_path(
-                      '/panier/ajouter/'
+                    path(
+                      'panierAjouter',
+                      { 'produitId': produit.produit.id }
                     )
-                    }}{{ produit.produit.id|raw }}">
+                    }}">
                     <i class="fas fa-plus-square text-muted"></i>
                   </a>
                 </td>
@@ -81,16 +83,17 @@
                 </td>
                 <td>
                   <a href="{{
-                    relative_path(
-                      '/panier/supprimer/'
+                    path(
+                      'panierSupprimer',
+                      { 'produitId': produit.produit.id }
                     )
-                    }}{{ produit.produit.id|raw }}">
+                    }}">
                     <i class="fas fa-trash text-muted"
                       data-toggle="tooltip"
                       title=""
                       data-placement="right"
                       data-html="true"
-                      data-original-title="Supprimer Oreo">
+                      data-original-title="{{ 'delete'|trans }} {{produit.produit.libelle}}">
 
                     </i>
                   </a>
@@ -107,13 +110,13 @@
                 {{ total|devise|format_currency( getDevise(), {rounding_mode: 'floor'}) }}
               </th>
               <th>
-                <a href="{{ relative_path('/panier/vider') }}">
+                <a href="{{ path('panierVider') }}">
                   <i class="fas fa-trash text-muted"
                     data-toggle="tooltip"
                     title=""
                     data-placement="right"
                     data-html="true"
-                    data-original-title="Vider le Panier">
+                    data-original-title="{{ 'cart.clearCart'|trans }}">
 
                   </i>
                 </a>

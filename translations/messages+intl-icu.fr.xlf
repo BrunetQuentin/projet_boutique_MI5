@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="Cj4nuMq" resname="products">
+        <source>products</source>
+        <target>Produit(s)</target>
+      </trans-unit>
+      <trans-unit id="tmET8Ah" resname="cart.continueShopping">
+        <source>cart.continueShopping</source>
+        <target>Continuer les courses</target>
+      </trans-unit>
+      <trans-unit id="qHkhV8t" resname="product">
+        <source>product</source>
+        <target>Produit</target>
+      </trans-unit>
+      <trans-unit id="YZdZVQP" resname="delete">
+        <source>delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="FEKIG0J" resname="cart.clearCart">
+        <source>cart.clearCart</source>
+        <target>Vider le panier</target>
+      </trans-unit>
+      <trans-unit id="jZAB0yx" resname="shop">
+        <source>shop</source>
+        <target>Boutique</target>
+      </trans-unit>
+      <trans-unit id="CT59X9u" resname="contact">
+        <source>contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="tUKhz_F" resname="connexion">
+        <source>connexion</source>
+        <target>Connexion</target>
+      </trans-unit>
+      <trans-unit id="oLHmkIs" resname="connexion.myAccount">
+        <source>connexion.myAccount</source>
+        <target>Mon compte</target>
+      </trans-unit>
+      <trans-unit id="eMZWBJg" resname="connexion.myOrders">
+        <source>connexion.myOrders</source>
+        <target>Mes commandes</target>
+      </trans-unit>
+      <trans-unit id="a8DWJN3" resname="backOffice">
+        <source>backOffice</source>
+        <target>BackOffice</target>
+      </trans-unit>
+      <trans-unit id="5M1wrwi" resname="nav.searchPlaceHolder">
+        <source>nav.searchPlaceHolder</source>
+        <target>Chercher des produits</target>
+      </trans-unit>
+      <trans-unit id="CH.rr0Y" resname="bestSeller">
+        <source>bestSeller</source>
+        <target>Meilleurs ventes</target>
+      </trans-unit>
+      <trans-unit id="Pu_kLVI" resname="shelf">
+        <source>shelf</source>
+        <target>Rayon</target>
+      </trans-unit>
+      <trans-unit id="CyHlrYw" resname="user.title">
+        <source>user.title</source>
+        <target>Utilisateur</target>
+      </trans-unit>
+      <trans-unit id="mvIRMps" resname="account">
+        <source>account</source>
+        <target>Compte</target>
+      </trans-unit>
+      <trans-unit id="TP3eab3" resname="firstname">
+        <source>firstname</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="VbXFH4Z" resname="lastname">
+        <source>lastname</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="hExisfv" resname="signUp">
+        <source>signUp</source>
+        <target>S'inscrire</target>
+      </trans-unit>
+      <trans-unit id="9wT5QZP" resname="logOut">
+        <source>logOut</source>
+        <target>Déconnexion</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

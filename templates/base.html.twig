@@ -41,7 +41,7 @@
           <div class="card">
             <div class="card-header text-center">
               <h4>
-                <i class="fas fa-star"></i> Top Ventes <i class="fas fa-star">
+                <i class="fas fa-star"></i> {{ 'bestSeller'|trans }} <i class="fas fa-star">
 
                 </i>
               </h4>
@@ -67,7 +67,7 @@
     <script>
       $(function () { $('[data-toggle="tooltip"]').tooltip();
       $("#searchButton").click( function () { var searchString =
-      $('#searchString').val().trim(); location = ("/boutique/chercher/" +
+      $('#searchString').val().trim(); location = ("/{{ app.request.locale }}/boutique/chercher/" +
       searchString);return false; }); });
     </script>
     <!-- debut du block js -->

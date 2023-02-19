@@ -4,16 +4,16 @@
   <div class="card col-md-12">
     <div class="card-header">
       <h1>
-        <i class="fas fa-store"></i> Rayon "{{ category.libelle }}" : {{
+        <i class="fas fa-store"></i> {{ 'shelf'|trans }} "{{ category.libelle }}" : {{
           produits|length
-        }} Produit(s)
+        }} {{ 'products'|trans }}
       </h1>
     </div>
     <div class="card-body row">
       {% for produit in produits %}
         <div class="col-md-4">
           <div class="card clickable"
-            onclick="location = '{{ relative_path('/panier/ajouter/') }}' + {{
+            onclick="location = '{{ path('panierAjouter') }}' + '/' + {{
             produit.id
             }}">
             <img src="{{ asset(produit.visuel) }}"

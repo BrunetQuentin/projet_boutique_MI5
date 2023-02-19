@@ -24,20 +24,21 @@ class UserController extends AbstractController
     Request $request,
     UserRepository $userRepository,
     UserPasswordHasherInterface $passwordHasher,
-    AuthenticationUtils $authenticationUtils,
+    AuthenticationUtils $authenticationUtils
   ): Response {
-  if ($this->getUser() != null) {
+
+    if ($this->getUser() != null) {
       return $this->redirectToRoute('compteDetail');
-  }
+    }
 
-  $user = new User();
+    $user = new User();
 
-  $form = $this->createForm(UserType::class, $user);
-  $form->handleRequest($request);
+    $form = $this->createForm(UserType::class, $user);
+    $form->handleRequest($request);
 
-  $user->setRoles(array('ROLE_USER'));
+    $user->setRoles(array('ROLE_USER'));
 
-  if ($form->isSubmitted() && $form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {
 
       $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
       $user->setPassword($hashedPassword);
@@ -45,20 +46,18 @@ class UserController extends AbstractController
       $userRepository->save($user, true);
 
       return $this->redirectToRoute('compteConnexion', [], Response::HTTP_SEE_OTHER);
-  }
+    }
 
-  // error and last username are in GET parameters
-  $last_username = $authenticationUtils->getLastUsername();
-  $error = $authenticationUtils->getLastAuthenticationError();
+    // error and last username are in GET parameters
+    $last_username = $authenticationUtils->getLastUsername();
+    $error = $authenticationUtils->getLastAuthenticationError();
 
-  dump($error);
-
-  return $this->renderForm('compte/connexion.html.twig', [
-      'last_username' => $last_username ,
+    return $this->renderForm('compte/connexion.html.twig', [
+      'last_username' => $last_username,
       'error' => $error,
       'user' => $user,
       'form' => $form,
-  ]);
+    ]);
   }
 
   // #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]

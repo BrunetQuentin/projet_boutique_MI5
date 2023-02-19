@@ -1,17 +1,25 @@
-index:
+default:
   path: /
   controller: App\Controller\AccueilController::index
+  defaults:
+    _locale: fr
+
+index:
+  path: /{_locale}/
+  controller: App\Controller\AccueilController::index
+  defaults:
+    _locale: fr
 
 boutique:
-  path: /boutique/
+  path: /{_locale}/boutique/
   controller: App\Controller\BoutiqueController::index
 
 boutiqueChercher:
-  path: /boutique/chercher/{produitName}
+  path: /{_locale}/boutique/chercher/{produitName}
   controller: App\Controller\BoutiqueController::find
 
 rayon:
-  path: /boutique/rayon/{rayonId}
+  path: /{_locale}/boutique/rayon/{rayonId}
   controller: App\Controller\RayonController::index
   defaults:
     rayonId: 1
@@ -19,11 +27,11 @@ rayon:
     rayonId: '\d+'
 
 panier:
-  path: /panier
+  path: /{_locale}/panier
   controller: App\Controller\PanierController::index
 
 panierAjouter:
-  path: /panier/ajouter/{produitId}
+  path: /{_locale}/panier/ajouter/{produitId}
   controller: App\Controller\PanierController::add
   defaults:
     produitId: 1
@@ -31,55 +39,55 @@ panierAjouter:
     produitId: '\d+'
 
 panierEnlever:
-  path: /panier/enlever/{produitId}
+  path: /{_locale}/panier/enlever/{produitId}
   controller: App\Controller\PanierController::remove
   requirements:
     produitId: '\d+'
 
 panierSupprimer:
-  path: /panier/supprimer/{produitId}
+  path: /{_locale}/panier/supprimer/{produitId}
   controller: App\Controller\PanierController::delete
   requirements:
     produitId: '\d+'
 
 panierVider:
-  path: /panier/vider
+  path: /{_locale}/panier/vider
   controller: App\Controller\PanierController::clear
   requirements:
     produitId: '\d+'
 
 panierCommander:
-  path: /panier/commander
+  path: /{_locale}/panier/commander
   controller: App\Controller\PanierController::checkout
 
 contact:
-  path: /contact
+  path: /{_locale}/contact
   controller: App\Controller\ContactController::index
 
 compteConnexion:
-  path: /compte/connexion
+  path: /{_locale}/compte/connexion
   controller: App\Controller\UserController::new
 
 app_login:
-  path: /compte/connexion/login
+  path: /{_locale}/compte/connexion/login
   controller: App\Controller\SecuriteController::login
 
 compteDetail:
-  path: /compte/detail
+  path: /{_locale}/compte/detail
   controller: App\Controller\CompteController::account
 
 compteCommandes:
-  path: /compte/commandes
+  path: /{_locale}/compte/commandes
   controller: App\Controller\CompteController::orders
 
 compteDeconnexion:
-  path: /compte/deconnexion
+  path: /{_locale}/compte/deconnexion
   controller: App\Controller\SecuriteController::logout
 
 changeDevise:
-  path: /changeDevise/{devise}
+  path: /{_locale}/changeDevise/{devise}
   controller: App\Controller\DeviseController::index
 
 sendEmail:
-  path: /compte/sendEmail
+  path: /{_locale}/compte/sendEmail
   controller: App\Controller\MailerController::commande
