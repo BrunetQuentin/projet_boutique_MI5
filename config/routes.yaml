@@ -79,3 +79,7 @@ compteDeconnexion:
 changeDevise:
   path: /changeDevise/{devise}
   controller: App\Controller\DeviseController::index
+
+sendEmail:
+  path: /compte/sendEmail
+  controller: App\Controller\MailerController::commande
